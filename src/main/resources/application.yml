@@ -1,0 +1,51 @@
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_CONNECT_URL}
+    username: ${DB_USERNAME:}
+    password: ${DB_PASSWORD}
+  jpa:
+    show-sql: ${SHOW_SQL}
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    locations: classpath:db/postgresql
+
+server:
+  servlet:
+    context-path: /internal/ipinfoservice/api
+  error:
+    include-message: always
+  tomcat:
+    remoteip:
+      remote-ip-header: x-forwarded-for
+      protocol-header: x-forwarded-proto
+
+logging:
+  level:
+    org.springframework: ${LOGLEVEL_SPRING:INFO}
+    org.hibernate: ${LOGLEVEL_HIBERNATE:ERROR}
+    net.playground.ipinfoservice: ${LOGLEVEL_APPLICATION:DEBUG}
+
+management:
+  health:
+    db:
+      enabled: false
+    ldap:
+      enabled: false
+    rabbit:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  server:
+    port: 8090

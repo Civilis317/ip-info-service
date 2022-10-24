@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: ${DB_CONNECT_URL}
+    username: ${DB_USERNAME:}
+    password: ${DB_PASSWORD}
+  jpa:
+    show-sql: ${SHOW_SQL:true}
+#    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+  flyway:
+    locations: classpath:db/h2
